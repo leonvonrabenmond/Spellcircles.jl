@@ -10,5 +10,6 @@ include("Construct.jl")
 export polygonpt
 export blank 
 export construct
+export polygon
 
 end

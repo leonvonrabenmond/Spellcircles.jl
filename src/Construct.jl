@@ -1,9 +1,9 @@
         """
-           polygonpt(n,r)
+           polygonpt(n,r,o)
 
        Compute all points of any regular `n`-polygon with radius `r`.
 
-       The first point is located at `(0,r)` and all further points are added clockwise.
+       The first point is located at `(0,r)` and all further points are added clockwise. The polygons can be orientated with an angle of `o`.
 
        # Examples
        ```julia-repl
@@ -14,17 +14,17 @@
         (-0.87, -0.5)
        ```
        """
-       function polygonpt(n,r)
-             complexvectors = [round(r*ℯ^(deg2rad(90-i*360/n) * im), digits = 2) for i ∈ 0:(n-1)];
+       function polygonpt(n::Int,r::Int,o::Int=0)
+             complexvectors = [round(r*ℯ^(-1*deg2rad(90-i*360/n -o) * im), digits = 2) for i ∈ 0:(n-1)];
              polygonptpt = [(real(complexvectors[i]), imag(complexvectors[i])) for i ∈ 1:length(complexvectors)]
       end
 
 
 
 """
-    blank(n,r)
+    blank(r)
 
-    Creates a blank spellcircle, with the name of `n` and an outer circle radius of `r`.
+    Creates a blank spellcircle with an outer radius of `r`.
 
      """
 function blank(r::Int)
@@ -34,7 +34,7 @@ function blank(r::Int)
 	global spellcircleend = """</svg>""";
 	global spellcircle = [spellcirclestart];	
 	msg = "Blank spellcirlce with a radius of 100 has been created."
-	return msg
+	return nothing
 end
 
 """
@@ -52,3 +52,20 @@ function construct(n::String)
 end
 
 
+"""
+    polygon(n,r,o)
+
+       Constructs a regular `n`-polygon with radius `r`.
+
+       The first point is located at `(0,r)` and all further points are added clockwise. The polygons can be orientated with an angle of `o`.
+"""
+function polygon(n::Int,r::Int,o::Int=0)
+	pt = polygonpt(n,r,o)
+	polystart = ["""<polygon points=" """]
+	polyend= ["""" fill="none" stroke="black" />"""]
+	polygonmid = [""" $(pt[i][1]),$(pt[i][2]) """ for i in 1:length(pt)]
+	polygonarr = cat(polystart, polygonmid, polyend; dims=1)
+	polygon = join(polygonarr)
+	push!(spellcircle, polygon)
+	return nothing
+	end
