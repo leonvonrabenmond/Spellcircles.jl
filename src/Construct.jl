@@ -19,3 +19,36 @@
              polygonptpt = [(real(complexvectors[i]), imag(complexvectors[i])) for i ∈ 1:length(complexvectors)]
       end
 
+
+
+"""
+    blank(n,r)
+
+    Creates a blank spellcircle, with the name of `n` and an outer circle radius of `r`.
+
+     """
+function blank(r::Int)
+	global spellcirclestart =  """<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-$(r+1) -$(r+1) $(2 * (r+1)) $(2 * (r+1))">
+	      <circle cx="0" cy="0" r="$r" stroke="black" stroke-width="1" fill="none" />
+	      """;
+	global spellcircleend = """</svg>""";
+	global spellcircle = [spellcirclestart];	
+	msg = "Blank spellcirlce with a radius of 100 has been created."
+	return msg
+end
+
+"""
+    construct(n)
+
+    Constructs the spellcircle and outputs it as an svg file with name `n`.
+     """
+function construct(n::String)
+	spellname = n
+	push!(spellcircle, spellcircleend)
+	stringcircle = join(spellcircle)
+	spellcircleconstruct = open("$spellname.svg","w")
+	write(spellcircleconstruct, stringcircle)
+	close(spellcircleconstruct)
+end
+
+
