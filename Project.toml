@@ -1,0 +1,13 @@
+name = "Spellcircles"
+uuid = "550df7a6-2e38-4978-b750-f1c464525dd8"
+authors = ["Leon von Rabenmond"]
+version = "0.1.0"
+
+[compat]
+julia = "1.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
