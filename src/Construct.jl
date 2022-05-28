@@ -1,7 +1,7 @@
-"""
+        """
            polygonpt(n,r)
 
-       Compute all points of any regular `n`gon with radius `r`.
+       Compute all points of any regular `n`-polygon with radius `r`.
 
        The first point is located at `(0,r)` and all further points are added clockwise.
 
