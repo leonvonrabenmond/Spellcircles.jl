@@ -8,9 +8,11 @@ include("Construct.jl")
 
 # Constructs.jl
 export polygonpt
-export blank 
+export blank
 export construct
 export polygon
 export circle
+export polygrampt
+export polygram
 
 end
