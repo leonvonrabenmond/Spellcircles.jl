@@ -29,7 +29,7 @@
      """
 function blank(r::Int)
 	global spellcirclestart =  """<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-$(r+1) -$(r+1) $(2 * (r+1)) $(2 * (r+1))">
-	      <circle cx="0" cy="0" r="$r" stroke="black" stroke-width="1" fill="none" />
+	      	<circle cx="0" cy="0" r="$r" stroke="black" stroke-width="1" fill="none" />
 	      """;
 	global spellcircleend = """</svg>""";
 	global spellcircle = [spellcirclestart];	
@@ -61,11 +61,25 @@ end
 """
 function polygon(n::Int,r::Int,o::Int=0)
 	pt = polygonpt(n,r,o)
-	polystart = ["""<polygon points=" """]
-	polyend= ["""" fill="none" stroke="black" />"""]
+	polystart = ["""	<polygon points=" """]
+	polyend= ["""" fill="none" stroke="black" />
+		  """]
 	polygonmid = [""" $(pt[i][1]),$(pt[i][2]) """ for i in 1:length(pt)]
 	polygonarr = cat(polystart, polygonmid, polyend; dims=1)
 	polygon = join(polygonarr)
 	push!(spellcircle, polygon)
 	return nothing
-	end
+end
+
+
+"""
+    circle(r)
+
+    Constructs a circle with radius `r`.
+"""
+function circle(r::Int)
+	circle = """	<circle cx="0" cy="0" r="$r" stroke="black" stroke-width="1" fill="none" />
+	      """
+	push!(spellcircle, circle)
+	return nothing
+end

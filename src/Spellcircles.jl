@@ -11,5 +11,6 @@ export polygonpt
 export blank 
 export construct
 export polygon
+export circle
 
 end
