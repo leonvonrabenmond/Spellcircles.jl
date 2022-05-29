@@ -14,9 +14,9 @@
         (-0.87, -0.5)
        ```
        """
-       function polygonpt(n::Int,r::Int,o::Int=0)
-             complexvectors = [round(r*ℯ^(-1*deg2rad(90-i*360/n -o) * im), digits = 2) for i ∈ 0:(n-1)];
-             polygonptpt = [(real(complexvectors[i]), imag(complexvectors[i])) for i ∈ 1:length(complexvectors)]
+       function polygonpt(n::Number,r::Number;orientation::Number=0,x::Number=0,y::Number=0)
+	       complexvectors = [round(r*ℯ^(deg2rad(90-i*360/n -orientation) * im), digits = 2) for i ∈ 0:(n-1)];
+             polygonptpt = [(real(complexvectors[i])+x, imag(complexvectors[i])+y) for i ∈ 1:length(complexvectors)]
       end
 
 
@@ -33,7 +33,6 @@ function blank(r::Int)
 	      """;
 	global spellcircleend = """</svg>""";
 	global spellcircle = [spellcirclestart];	
-	msg = "Blank spellcirlce with a radius of 100 has been created."
 	return nothing
 end
 
@@ -59,12 +58,12 @@ end
 
        The first point is located at `(0,r)` and all further points are added clockwise. The polygons can be orientated with an angle of `o`.
 """
-function polygon(n::Int,r::Int,o::Int=0)
+function polygon(n::Number,r::Number;orientation::Number=0,x::Number=0,y::Number=0, stroke::String="black", width::Number=1, fill::String="none")
 	pt = polygonpt(n,r,o)
 	polystart = ["""	<polygon points=" """]
-	polyend= ["""" fill="none" stroke="black" />
+	polyend= ["""" fill="$fill" stroke="$stroke" stroke-width="$width" />
 		  """]
-	polygonmid = [""" $(pt[i][1]),$(pt[i][2]) """ for i in 1:length(pt)]
+	polygonmid = [""" $(pt[i][1]),$(-1*pt[i][2]) """ for i in 1:length(pt)]
 	polygonarr = cat(polystart, polygonmid, polyend; dims=1)
 	polygon = join(polygonarr)
 	push!(spellcircle, polygon)
@@ -77,8 +76,8 @@ end
 
     Constructs a circle with radius `r`.
 """
-function circle(r::Int)
-	circle = """	<circle cx="0" cy="0" r="$r" stroke="black" stroke-width="1" fill="none" />
+function circle(r::Number; x::Number=0,y::Number=0, stroke::String="black", width::Number=1, fill::String="none")
+	circle = """	<circle cx="$x" cy="$(-y)" r="$r" stroke="$stroke" stroke-width="$width" fill="$fill" />
 	      """
 	push!(spellcircle, circle)
 	return nothing
