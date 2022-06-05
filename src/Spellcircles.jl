@@ -4,6 +4,10 @@ module Spellcircles
 
 include("Construct.jl")
 
+# Import
+
+import Dates
+
 # Export
 
 # Constructs.jl
@@ -12,7 +16,6 @@ export blank
 export construct
 export polygon
 export circle
-export polygrampt
 export polygram
 
 end

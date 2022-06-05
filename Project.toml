@@ -3,6 +3,9 @@ uuid = "550df7a6-2e38-4978-b750-f1c464525dd8"
 authors = ["Leon von Rabenmond"]
 version = "0.1.0"
 
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+
 [compat]
 julia = "1.7"
 
