@@ -7,7 +7,7 @@ Creates a blank spellcircle.
 """
 function blank()
 	global rawspellcircle = [];
-    return nothing
+    return rawspellcircle
 end
 
 
@@ -146,7 +146,8 @@ function polygram(n::Number, r::Number; orientation::Number=0, x::Number=0, y::N
     end
     pt = polygrampt(n,r,orientation=orientation,x=x,y=y, edges=edges)
     for i in 1:length(pt)
-	       polygram = """   <line x1="$(pt[i][1][1])" y1="$(-pt[i][1][2])" x2="$(pt[i][2][1])" y2="$(-pt[i][2][2])" fill="$fill" stroke="$stroke" stroke-width="$width" /> """
+	       polygram = """   <line x1="$(pt[i][1][1])" y1="$(-pt[i][1][2])" x2="$(pt[i][2][1])" y2="$(-pt[i][2][2])" fill="$fill" stroke="$stroke" stroke-width="$width" />
+           """
 	       push!(rawspellcircle, polygram)
     end
 	return nothing
@@ -156,7 +157,7 @@ end
 """
 circle(r)
 
-Constructs a circle with radius `r`.
+Draws a circle with radius `r`.
 
 # Arguments
 - `x::Number`: Moves polygon by `x`.
@@ -169,5 +170,23 @@ function circle(r::Number; x::Number=0,y::Number=0, stroke::String="black", widt
 	circle = """	<circle cx="$x" cy="$(-y)" r="$r" stroke="$stroke" stroke-width="$width" fill="$fill" />
 	      """
 	push!(rawspellcircle, circle)
+	return nothing
+end
+
+# Lines
+"""
+lines(pt1,pt2)
+
+Draws a line from `pt1` to `pt2`, where each point is a tuple of `(x,y)`.
+
+# Arguments
+- `stroke::String`: Sets the colour of the lines.
+- `width::Number`: Sets the width of the lines.
+- `fill::String`: Sets background colour of the polygon.
+"""
+function lines(pt1::Tuple{Number, Number}, pt2::Tuple{Int64, Int64}; stroke::String="black", width::Number=1, fill::String="none")
+	line = """   <line x1="$(pt1[1])" y1="$(-pt1[2])" x2="$(pt2[1])" y2="$(-pt2[2])" fill="$fill" stroke="$stroke" stroke-width="$width" />
+            """
+	push!(rawspellcircle, line)
 	return nothing
 end

@@ -17,5 +17,6 @@ export construct
 export polygon
 export circle
 export polygram
+export lines
 
 end
